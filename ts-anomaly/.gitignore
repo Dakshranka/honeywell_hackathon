@@ -1,1 +1,33 @@
+# Ignore Python cache and virtual environments
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore virtual environment folders
+.venv/
+venv/
+ENV/
+
+# Ignore outputs and logs
+*.log
+*.out
+*.csv
+!ts-anomaly/outputs/*.csv
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE/project files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore data files except the provided dataset
+!ts-anomaly/data/train.csv
 .venv
