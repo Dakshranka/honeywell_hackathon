@@ -12,12 +12,6 @@ __pycache__/
 venv/
 ENV/
 
-# Ignore outputs and logs
-*.log
-*.out
-*.csv
-!ts-anomaly/outputs/*.csv
-
 # Ignore OS files
 .DS_Store
 Thumbs.db
@@ -29,5 +23,4 @@ Thumbs.db
 *.swo
 
 # Ignore data files except the provided dataset
-!ts-anomaly/data/train.csv
 .venv
