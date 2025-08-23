@@ -48,7 +48,7 @@ The dataset (`data/train.csv`) contains time-stamped sensor readings from an ind
      - This will generate anomaly scores and top features in `outputs/anomalies_output.csv`.
 6. **Analyze & Visualize Results**
      - Open `notebooks/final_visualization.ipynb` in Jupyter and run all cells for EDA and anomaly analysis.
-7. **(Optional) Launch Dashboard**
+7. **Launch Dashboard**
      - Run:
        ```bash
        streamlit run app/streamlit_app.py
