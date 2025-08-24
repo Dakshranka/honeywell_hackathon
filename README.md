@@ -1,8 +1,8 @@
 
-# TS-Anomaly: Multivariate Time Series Anomaly Detection Hackathon
+# TS-Anomaly: Multivariate Time Series Anomaly Detection 
 
 ## Project Context
-This project was developed for a data science hackathon focused on industrial sensor monitoring. The goal is to automatically detect abnormal behavior in complex machinery using time-series data from multiple sensors. Early detection of anomalies can prevent costly failures, improve safety, and optimize maintenance schedules.
+This project is focused on Multivariate Time Series Anomaly Detection. The goal is to automatically detect abnormal behavior in complex machinery using time-series data from multiple sensors. Early detection of anomalies can prevent costly failures, improve safety, and optimize maintenance schedules.
 ## Dataset
 - **File:** `data/train.csv` (provided)
 - **Format:** CSV with a `timestamp` column (YYYY-MM-DD HH:MM:SS) and multiple sensor features.
@@ -48,7 +48,7 @@ The dataset (`data/train.csv`) contains time-stamped sensor readings from an ind
      - This will generate anomaly scores and top features in `outputs/anomalies_output.csv`.
 6. **Analyze & Visualize Results**
      - Open `notebooks/final_visualization.ipynb` in Jupyter and run all cells for EDA and anomaly analysis.
-7. **(Optional) Launch Dashboard**
+7. **Launch Dashboard**
      - Run:
        ```bash
        streamlit run app/streamlit_app.py
