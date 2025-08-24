@@ -1,14 +1,10 @@
-"""
-Preprocessing for Multivariate Time Series Anomaly Detection Hackathon
-Loads train.csv, validates timestamps, handles missing values, splits normal/analysis periods.
-"""
+
 import pandas as pd
 import numpy as np
 from typing import Tuple, List
 import os
 
 def load_and_validate_data(file_path: str) -> pd.DataFrame:
-    """Load CSV, parse timestamps, validate columns."""
     df = pd.read_csv(file_path, parse_dates=[0])
     df = df.rename(columns={df.columns[0]: "timestamp"})
     df = df.set_index("timestamp")
@@ -35,8 +31,6 @@ def main():
     output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "outputs")
     os.makedirs(output_dir, exist_ok=True)
     df = load_and_validate_data(input_path)
-
-    # ...existing code...
 
     train_df, analysis_df = split_periods(df)
     train_df.to_csv(os.path.join(output_dir, "normal_period.csv"))

@@ -1,12 +1,3 @@
-"""
-Model training and anomaly scoring for Hackathon
-Trains Isolation Forest, PCA, LSTM Autoencoder on normal period, scores analysis period, outputs abnormality scores and top_feature_1-7.
-
-Args:
-    input_train_path (str): Path to normal period CSV.
-    input_analysis_path (str): Path to analysis period CSV.
-    output_path (str): Path to save output CSV.
-"""
 
 import pandas as pd
 import numpy as np
@@ -18,14 +9,13 @@ from typing import List, Tuple
 import os
 
 def normalize_scores(scores: np.ndarray) -> np.ndarray:
-    """Normalize scores to 0-100 scale."""
     min_score = np.min(scores)
     max_score = np.max(scores)
     norm = (scores - min_score) / (max_score - min_score + 1e-8) * 100
     return norm
 
 def get_top_features(score_row: np.ndarray, train_mean: np.ndarray, feature_names: List[str], top_k: int = 7) -> List[str]:
-    """Rank features by absolute contribution (>1%), break ties alphabetically, fill up to top_k."""
+
     abs_contrib = np.abs(score_row - train_mean)
     total = abs_contrib.sum()
     contrib_pct = abs_contrib / (total + 1e-8)
@@ -38,7 +28,6 @@ def get_top_features(score_row: np.ndarray, train_mean: np.ndarray, feature_name
 
 # LSTM Autoencoder for temporal anomaly detection
 class LSTMAutoencoder(nn.Module):
-    """LSTM Autoencoder for temporal anomaly detection."""
     def __init__(self, input_dim, hidden_dim=32, latent_dim=16, num_layers=1):
         super().__init__()
         self.encoder = nn.LSTM(input_dim, hidden_dim, num_layers, batch_first=True)
@@ -54,7 +43,6 @@ class LSTMAutoencoder(nn.Module):
         return out
 
 def lstm_ae_score(train_X: np.ndarray, test_X: np.ndarray, device: str = 'cpu') -> np.ndarray:
-    """Train LSTM Autoencoder and return reconstruction error for test set."""
     model = LSTMAutoencoder(train_X.shape[2]).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
     criterion = nn.MSELoss()
@@ -78,13 +66,6 @@ def run_anomaly_detection(
     input_analysis_path: str,
     output_path: str
 ) -> None:
-    """
-    Run anomaly detection pipeline and save output CSV.
-    Args:
-        input_train_path: Path to normal period CSV.
-        input_analysis_path: Path to analysis period CSV.
-        output_path: Path to save output CSV.
-    """
     train_df = pd.read_csv(input_train_path, index_col=0, parse_dates=True)
     analysis_df = pd.read_csv(input_analysis_path, index_col=0, parse_dates=True)
     feature_cols = [col for col in analysis_df.columns]
@@ -136,13 +117,10 @@ def run_anomaly_detection(
     output_df['abnormality_score_ensemble'] = abnormality_ensemble
     for k in range(7):
         output_df[f'top_feature_{k+1}'] = [feats[k] for feats in top_features_list]
-    # Reset index to ensure timestamp is a column and format as string
     output_df = output_df.reset_index()
     output_df['timestamp'] = output_df['timestamp'].dt.strftime('%Y-%m-%d %H:%M:%S')
     output_df.to_csv(output_path, index=False)
     print(f"Anomaly scores (IF, PCA, LSTM, Ensemble) and top features saved to {output_path}")
-
-    # Training period anomaly score check
     train_scores = -if_model.score_samples(train_X)
     train_abnormality = normalize_scores(train_scores)
     print(f"Training period abnormality score: mean={train_abnormality.mean():.2f}, max={train_abnormality.max():.2f}")
