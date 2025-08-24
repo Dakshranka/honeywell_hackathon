@@ -2,7 +2,7 @@
 # TS-Anomaly: Multivariate Time Series Anomaly Detection Hackathon
 
 ## Project Context
-This project was developed for a data science hackathon focused on industrial sensor monitoring. The goal is to automatically detect abnormal behavior in complex machinery using time-series data from multiple sensors. Early detection of anomalies can prevent costly failures, improve safety, and optimize maintenance schedules.
+This project builds a Python solution to automatically detect abnormal patterns in multivariate time series sensor data from industrial equipment. By identifying anomalies and their main contributing features, it helps organizations move from reactive to predictive maintenance, reducing costs and improving reliability.
 ## Dataset
 - **File:** `data/train.csv` (provided)
 - **Format:** CSV with a `timestamp` column (YYYY-MM-DD HH:MM:SS) and multiple sensor features.
