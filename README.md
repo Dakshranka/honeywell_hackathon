@@ -23,7 +23,7 @@ The dataset (`data/train.csv`) contains time-stamped sensor readings from an ind
 - The first 5 days (2004-01-01 to 2004-01-05) are guaranteed normal and used for model training.
 - The rest of the data (up to 2004-01-19) is used for anomaly analysis.
 
-## Step-by-Step Instructions (Zero Knowledge Friendly)
+## Step-by-Step Instructions 
 
 1. **Install Python 3.9+**
      - Download and install Python from [python.org](https://www.python.org/downloads/).
